@@ -21,4 +21,4 @@ export function getSheetsClient() {
 }
 
 export const SPREADSHEET_ID = process.env.SPREADSHEET_ID!;
-export const BD_RANGE = "BD_Insumos!A4:F200";
+export const BD_RANGE = "BD_Insumos!A4:G300";
