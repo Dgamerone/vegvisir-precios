@@ -1,16 +1,15 @@
 import { google } from "googleapis";
 
 export function getSheetsClient() {
-  const privateKey = Buffer.from(
-    process.env.GOOGLE_PRIVATE_KEY_BASE64 ?? "",
-    "base64"
-  ).toString("utf-8");
+  const credentials = JSON.parse(
+    Buffer.from(
+      process.env.GOOGLE_SERVICE_ACCOUNT_JSON ?? "",
+      "base64"
+    ).toString("utf-8")
+  );
 
   const auth = new google.auth.GoogleAuth({
-    credentials: {
-      client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-      private_key: privateKey,
-    },
+    credentials,
     scopes: ["https://www.googleapis.com/auth/spreadsheets"],
   });
   return google.sheets({ version: "v4", auth });
