@@ -12,22 +12,16 @@ export async function GET() {
     const rows = res.data.values ?? [];
     // Filtrar filas vacías y headers de sección (texto en mayúsculas sin precio)
     const insumos = rows
-      .map((row, idx) => ({
-        rowIndex: idx + 4, // fila real en la sheet (base 1, datos desde fila 4)
-        nombre: (row[0] ?? "").toString().trim(),
-        color: (row[1] ?? "").toString().trim(),
-        unidad: (row[2] ?? "").toString().trim(),
-        cantidad: (row[3] ?? "").toString().trim(),
-        proveedor: (row[4] ?? "").toString().trim(),
-        precio: row[5] ? parseFloat(row[5].toString().replace(",", ".")) : null,
-        fechaActualizacion: (row[6] ?? "").toString().trim(),
-      }))
-      .filter(
-        (r) =>
-          r.nombre &&
-          r.nombre !== r.nombre.toUpperCase() && // excluir headers tipo "CINTAS"
-          r.unidad // tiene unidad = fila válida
-      );
+  .map((row, idx) => ({
+    rowIndex: idx + 4,
+    codigo: (row[0] ?? "").toString().trim(),
+    categoria: (row[1] ?? "").toString().trim(),
+    nombre: (row[2] ?? "").toString().trim(),
+    unidad: (row[3] ?? "").toString().trim(),
+    precio: row[4] ? parseFloat(row[4].toString().replace(",", ".")) : null,
+    notas: (row[5] ?? "").toString().trim(),
+  }))
+  .filter((r) => r.codigo && r.nombre && r.precio !== null);
 
     return NextResponse.json({ ok: true, insumos });
   } catch (err) {
