@@ -1,12 +1,10 @@
 import { google } from "googleapis";
 
 export function getSheetsClient() {
-  const rawKey = process.env.GOOGLE_PRIVATE_KEY ?? "";
-  
-  // Limpia comillas externas si las hay y convierte \n literales
-  const privateKey = rawKey
-    .replace(/^"(.*)"$/, "$1")
-    .replace(/\\n/g, "\n");
+  const privateKey = Buffer.from(
+    process.env.GOOGLE_PRIVATE_KEY_BASE64 ?? "",
+    "base64"
+  ).toString("utf-8");
 
   const auth = new google.auth.GoogleAuth({
     credentials: {
