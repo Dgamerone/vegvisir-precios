@@ -1,10 +1,17 @@
 import { google } from "googleapis";
 
 export function getSheetsClient() {
+  const rawKey = process.env.GOOGLE_PRIVATE_KEY ?? "";
+  
+  // Limpia comillas externas si las hay y convierte \n literales
+  const privateKey = rawKey
+    .replace(/^"(.*)"$/, "$1")
+    .replace(/\\n/g, "\n");
+
   const auth = new google.auth.GoogleAuth({
     credentials: {
       client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-      private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
+      private_key: privateKey,
     },
     scopes: ["https://www.googleapis.com/auth/spreadsheets"],
   });
