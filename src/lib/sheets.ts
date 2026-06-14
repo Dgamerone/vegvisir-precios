@@ -12,5 +12,4 @@ export function getSheetsClient() {
 }
 
 export const SPREADSHEET_ID = process.env.SPREADSHEET_ID!;
-// La hoja BD_Insumos: columnas A=Insumo B=Color C=Unidad D=Cantidad E=Proveedor F=Precio G=Fecha
-export const BD_RANGE = "BD_Insumos!A4:G300";
+export const BD_RANGE = "BD_Insumos!A4:F200";
