@@ -24,8 +24,10 @@ export async function GET() {
   .filter((r) => r.codigo && r.nombre && r.precio !== null);
 
     return NextResponse.json({ ok: true, insumos });
-  } catch (err) {
-    console.error(err);
-    return NextResponse.json({ ok: false, error: "Error al leer la hoja" }, { status: 500 });
+  } catch (err: any) {
+    console.error("ERROR COMPLETO:", err?.message, err?.code, err?.status);
+    return NextResponse.json(
+      { ok: false, error: "Error al leer la hoja", detail: err?.message },
+      { status: 500 }
+    );
   }
-}
