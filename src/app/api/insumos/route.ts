@@ -16,12 +16,12 @@ export async function GET() {
     rowIndex: idx + 4,
     codigo: (row[0] ?? "").toString().trim(),
     categoria: (row[1] ?? "").toString().trim(),
-    nombre: (row[2] ?? "").toString().trim(),
-    unidad: (row[3] ?? "").toString().trim(),
-    precio: row[4] ? parseFloat(row[4].toString().replace(",", ".")) : null,
-    notas: (row[5] ?? "").toString().trim(),
+    nombre: (row[0] ?? "").toString().trim(),
+    unidad: (row[2] ?? "").toString().trim(),
+    precio: row[5] ? parseFloat(row[5].toString().replace(",", ".").replace(/[^0-9.]/g, "")) : null,
+    notas: (row[6] ?? "").toString().trim(),
   }))
-  .filter((r) => r.codigo && r.nombre && r.precio !== null);
+  .filter((r) => r.nombre && r.nombre !== r.nombre.toUpperCase() && r.unidad);
 
     return NextResponse.json({ ok: true, insumos });
   } catch (err: any) {
