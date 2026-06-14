@@ -161,7 +161,7 @@ export default function App() {
 
   const login = () => {
     // Client-side check — server validates on every request
-    if (pwd.trim().length < 3) { setPwdErr(true); return; }
+    if (pwd.trim() !== "12345") { setPwdErr(true); return; }
     sessionStorage.setItem("vv_pwd", pwd);
     setAuthed(true);
     setPwdErr(false);
