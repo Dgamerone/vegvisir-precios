@@ -170,7 +170,7 @@ export default function App() {
   const fetchInsumos = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/insumos");
+      const res = await fetch("/api/insumos", { cache: "no-store" });
       const data = await res.json();
       if (data.ok) setInsumos(data.insumos);
       else showToast("Error al cargar insumos", "error");
