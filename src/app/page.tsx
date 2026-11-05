@@ -190,7 +190,7 @@ export default function App() {
       const res = await fetch("/api/actualizar", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ rowIndex: selected.rowIndex, precio: Number(newPrice), password: pwd }),
+        body: JSON.stringify({ rowIndex: selected.rowIndex, nombre: selected.nombre, color: selected.color, precio: Number(newPrice), password: pwd }),
       });
       const data = await res.json();
       if (data.ok) {
@@ -202,6 +202,7 @@ export default function App() {
           )
         );
         setSaveState("ok");
+        fetchInsumos();
         showToast(`✓ ${selected.nombre} actualizado`, "ok");
         setTimeout(() => { setSelected(null); setSaveState("idle"); setNewPrice(""); }, 600);
       } else {
