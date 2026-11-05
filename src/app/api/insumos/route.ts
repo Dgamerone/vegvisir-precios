@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { getSheetsClient, SPREADSHEET_ID, BD_RANGE } from "@/lib/sheets";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export async function GET() {
   try {
     const sheets = getSheetsClient();
@@ -36,7 +39,10 @@ export async function GET() {
         r.unidad
       );
 
-    return NextResponse.json({ ok: true, insumos });
+    return NextResponse.json(
+      { ok: true, insumos },
+      { headers: { "Cache-Control": "no-store" } }
+    );
   } catch (err: any) {
     console.error("ERROR COMPLETO:", err?.message, err?.code, err?.status);
     return NextResponse.json(
